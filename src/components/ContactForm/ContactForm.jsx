@@ -4,9 +4,29 @@ class ContactForm extends Component {
     name: '',
     number: '',
   };
+  handleInputChange = name => e => {
+      console.log({ name: e.currentTarget.value });
+      const { target } = e;
+      this.setState(() => ({
+        [name]: target.value,
+      }))
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    onSubmit(this.state);
+    this.resetForm();
+  };
+  resetForm = () => {
+    this.setState(() => ({
+      name: '',
+      number: '',
+    }));
+  };
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <label>
           Name
         <input
@@ -16,7 +36,7 @@ class ContactForm extends Component {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           value={this.state.name} 
-          onChenge={}
+          onChenge={this.handleInputChange('name')}
           />  
         </label>
         <label>
@@ -27,6 +47,7 @@ class ContactForm extends Component {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          
         />  
         </label>
         <button type="submit">
@@ -36,3 +57,5 @@ class ContactForm extends Component {
     )
   }
 }
+
+export default ContactForm;
