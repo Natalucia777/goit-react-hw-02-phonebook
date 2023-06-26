@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
 class ContactForm extends Component {
   state = {
-    contacts: [],
-    filter: '',
     name: '',
     number: '',
   };
-  
-  handleInputChange = name => e => {
+    handleInputChange = name => e => {
       // console.log({ name: e.currentTarget.value });
       const { target } = e;
     this.setState(() => ({
       [name]: target.value,
     }));
   };
-
   handleSubmit = e => {
     e.preventDefault();
     const { onSubmit } = this.props;
     onSubmit(this.state);
     this.resetForm();
   };
-
   resetForm = () => {
     this.setState(() => ({
       name: '',
       number: '',
     }));
   };
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
