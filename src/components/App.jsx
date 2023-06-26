@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
+import Filter from './Filter/Filter';
+import ContactList from './ContactList/ContactList';
 
 class App extends Component {
   state = {
@@ -12,7 +14,7 @@ class App extends Component {
     let isAdded = false;
     this.state.contacts.forEach(elem => {
       if (elem.name.toLowerCase() === normalizedName) {
-        alert(`${name} is in contacts`);
+        alert(`${name} is already in contacts`);
         isAdded = true;
       }
     });
@@ -38,9 +40,19 @@ class App extends Component {
   render() {
     return (
       <div>
+        <h1>
+          Phonebook
+        </h1>
         <ContactForm onSubmit={this.addContact} />
+        <h2>
+          Contacts
+        </h2>
+        <div>
+          All contacts: {contacts.length}
+        </div>
+         <Filter />
+        <ContactList />
       </div>
-     
     );
   }
 }
