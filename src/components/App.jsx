@@ -5,7 +5,8 @@ class App extends Component {
   state = {
     name: '',
     number: '',
-  }
+  };
+
   addContact = ({ name, number }) => {
     const normalizedName = name.toLowerCase();
     let isAdded = false;
@@ -16,16 +17,30 @@ class App extends Component {
       }
     });
       
-    // console.log({ name: e.currentTarget.value });
-  //   const { target } = e;
-  //   this.setState(() => ({
-  //     [name]: target.value,
-  //   }))
-  // };
+    if (isAdded) {
+      return;
+    }
+    const contact = {
+      id: shottid.generate(),
+      name: name,
+      number: number,
+    };
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, contact],
+    }));
+
+    //  console.log({ name: e.currentTarget.value });
+    const { target } = e;
+    this.setState(() => ({
+      [name]: target.value,
+    }))
+  }
   render() {
     return (
-      <ContactForm onSubmit={this.addContact} />
-
+      <div>
+        <ContactForm onSubmit={this.addContact} />
+      </div>
+     
     );
   }
 }
