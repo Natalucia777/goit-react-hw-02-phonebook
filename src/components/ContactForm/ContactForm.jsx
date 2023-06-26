@@ -6,6 +6,7 @@ class ContactForm extends Component {
     name: '',
     number: '',
   };
+  
   handleInputChange = name => e => {
       // console.log({ name: e.currentTarget.value });
       const { target } = e;

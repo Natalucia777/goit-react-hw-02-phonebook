@@ -5,9 +5,15 @@ import ContactList from './ContactList/ContactList';
 
 class App extends Component {
   state = {
+    contacts: [],
+    filter: '',
     name: '',
     number: '',
   };
+
+
+
+
 
   addContact = ({ name, number }) => {
     const normalizedName = name.toLowerCase();
@@ -18,10 +24,11 @@ class App extends Component {
         isAdded = true;
       }
     });
-      
+     
     if (isAdded) {
       return;
     }
+    
     const contact = {
       id: shottid.generate(),
       name: name,
