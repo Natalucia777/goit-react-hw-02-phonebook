@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { object, string, number, date, InferType } from 'yup';
+
+const initialValues = {
+  name: '',
+  number: '',
+}
+// const handleSubmit = () = ? {} 
 class ContactForm extends Component {
   state = {
     name: '',
@@ -11,24 +19,29 @@ class ContactForm extends Component {
       [name]: target.value,
     }));
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    const { onSubmit } = this.props;
-    onSubmit(this.state);
-    this.resetForm();
-  };
-  resetForm = () => {
-    this.setState(() => ({
-      name: '',
-      number: '',
-    }));
-  };
+  
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   const { onSubmit } = this.props;
+  //   onSubmit(this.state);
+  //   this.resetForm();
+  // };
+  //   resetForm = () => {
+  //   this.setState(() => ({
+  //     name: '',
+  //     number: '',
+  //   }));
+  // };
   render() {
+    const handleSubmit = (values, {resetForm}) => {
+      resetForm();
+    };
     return (
-      <form onSubmit={this.handleSubmit}>
+       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <label>
           Name
-          <input
+          <Fild
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -40,7 +53,7 @@ class ContactForm extends Component {
         </label>
         <label>
           Number
-          <input
+          <Fild
             type="text"
             name="number"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -53,7 +66,8 @@ class ContactForm extends Component {
         <button type="submit">
           Add contact
         </button>
-      </form>
+        </Form>
+        </Formik>
     );
   }
 }

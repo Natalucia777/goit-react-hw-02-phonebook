@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
+import { Formik } from 'formik';
+import { object, string, number, date, InferType } from 'yup';
 
 class App extends Component {
   
@@ -34,16 +36,17 @@ class App extends Component {
       name: name,
       number: number,
     };
+
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
 
-    //  console.log({ name: e.currentTarget.value });
     const { target } = e;
     this.setState(() => ({
       [name]: target.value,
     }))
   }
+  
   render() {
     return (
       <div>
@@ -57,7 +60,7 @@ class App extends Component {
         <div>
           All contacts: {contacts.length}
         </div>
-         <Filter />
+        <Filter />
         <ContactList />
       </div>
     );
