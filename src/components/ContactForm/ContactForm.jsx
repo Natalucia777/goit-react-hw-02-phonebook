@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
+import * as yup from 'yup';
 
 const initialValues = {
   name: '',
@@ -32,12 +33,21 @@ class ContactForm extends Component {
   //     number: '',
   //   }));
   // };
-  render() {
-    const handleSubmit = (values, {resetForm}) => {
-      resetForm();
-    };
-    return (
-       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+
+let userSchema = object({
+  name: string().required(),
+  number: number().required().positive().integer(),
+});
+
+
+
+
+render() {
+  const handleSubmit = (values, { resetForm }) => {
+    resetForm();
+  };
+  return (
+    <Formik initialValues={initialValues} validationSchema={userSchema} onSubmit={handleSubmit}>
       <Form onSubmit={this.handleSubmit}>
         <label>
           Name
@@ -50,6 +60,7 @@ class ContactForm extends Component {
             value={this.state.name}
             onChenge={this.handleInputChange('name')}
           />
+          <ErrorMessage name="name" />
         </label>
         <label>
           Number
@@ -62,6 +73,7 @@ class ContactForm extends Component {
             value={this.state.number}
             onChenge={this.handleInputChange('number')}
           />
+          <ErrorMessage name="number" />
         </label>
         <button type="submit">
           Add contact
