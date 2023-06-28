@@ -3,8 +3,9 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import shortid from 'shortid';
-import { Formik } from 'formik';
-import { object, string, number, date, InferType } from 'yup';
+
+// import { Formik } from 'formik';
+// import { object, string, number, date, InferType } from 'yup';
 
 class App extends Component {
   
@@ -21,36 +22,55 @@ class App extends Component {
   addContact = ({ name, number }) => {
     const normalizedName = name.toLowerCase();
     let isAdded = false;
-    this.state.contacts.forEach(elem => {
-      if (elem.name.toLowerCase() === normalizedName) {
+    this.state.contacts.forEach(e => {
+      if (e.name.toLowerCase() === normalizedName) {
         alert(`${name} is already in contacts`);
         isAdded = true;
       }
     });
-     
-    if (isAdded) {
+      if (isAdded) {
       return;
     }
-    
-    const contact = {
+        const contact = {
       id: shortid.generate(),
       name: name,
       number: number,
     };
-
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
+  };
 
+   
 
+onChenge = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
     
-    const { target } = e;
-    this.setState(() => ({
-      [name]: target.value,
-    }))
-  }
-  
+visiblContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+    
+    
+    // const { target } = e;
+    // this.setState(() => ({
+    //   [name]: target.value,
+    // }));
+  // }
+
+  removeContact = todoId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== todoId),
+    }));
+  };
+
   render() {
+    const { contacts, filter } = this.state;
+    
     return (
       <div>
         <h1>
@@ -63,8 +83,9 @@ class App extends Component {
         <div>
           All contacts: {contacts.length}
         </div>
-        <Filter />
-        <ContactList />
+        <Filter value={filter} onChenge={this.onChenge} />
+        <ContactList
+        contacts={this.visiblContacts()} onRemove={this.removeContact}/>
       </div>
     );
   }

@@ -1,15 +1,20 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import { object, string, number } from 'yup';
-// import * as yup from 'yup';
+import React, { Component } from 'react';
 
+import { Formik, ErrorMessage } from 'formik';
+import { object, string } from 'yup';
+// import * as yup from 'yup';
+import { StForm } from './ContactForm.styled';
+import { StLabel } from './ContactForm.styled';
+import { FieldName } from './ContactForm.styled';
+import { FieldNumber } from './ContactForm.styled';
+import PropTypes from 'prop-types';
 
 // const handleSubmit = () = ? {} 
-// class ContactForm extends Component {
-//   state = {
-//     name: '',
-//     number: '',
-//   };
+class ContactForm extends Component {
+  state = {
+    name: '',
+    number: '',
+  };
 //     handleInputChange = name => e => {
 //       // console.log({ name: e.currentTarget.value });
 //       const { target } = e;
@@ -18,35 +23,36 @@ import { object, string, number } from 'yup';
 //     }));
 //   };
   
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   const { onSubmit } = this.props;
-  //   onSubmit(this.state);
-  //   this.resetForm();
-  // };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    onSubmit(this.state);
+    this.resetForm();
+  };
   //   resetForm = () => {
   //   this.setState(() => ({
   //     name: '',
   //     number: '',
   //   }));
   // };
-const initialValues = {
-  name: '',
-  number: '',
-};
-export const ContactForm = () => {
-  const handleSubmit = (values, { resetForm }) => {
-    resetForm();
-  };
-
+// const initialValues = {
+//   name: '',
+//   number: '',
+// };
+// export const ContactForm = () => {
+//   const handleSubmit = (values, { resetForm }) => {
+//     resetForm();
+//   };
+  render() {
+  const { name, number } = this.state;
 let userSchema = object({
   name: string().required(),
   number: number().required().positive().integer(),
 });
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={userSchema} >
-      <Form autoCpmplete="off">
-        <label htmlFor="name">
+    <Formik initialValues={{ name, number }} onSubmit={this.handleSubmit} validationSchema={userSchema} >
+      <StForm autoCpmplete="off">
+        <StLabel htmlFor="name">
           Name
           <FieldName
             type="text"
@@ -57,9 +63,9 @@ let userSchema = object({
             // value={this.state.name}
             // onChenge={this.handleInputChange('name')}
           />
-          {/* <ErrorMessage name="name" /> */}
-        </label>
-        <label>
+           <ErrorMessage name="name" component="div" />
+        </StLabel>
+        <StLabel>
           Number
           <FieldNumber
             type="text"
@@ -70,16 +76,21 @@ let userSchema = object({
             // value={this.state.number}
             // onChenge={this.handleInputChange('number')}
           />
-          {/* <ErrorMessage name="number" /> */}
-        </label>
+          <ErrorMessage name="number" component="div" />
+        </StLabel>
 
         <button type="submit">
           Add contact
         </button>
-        </Form>
+        </StForm>
         </Formik>
     );
   }
+}
+
+ContactForm.propTypes = {
+  handleSubmit: PropTypes.func,
+};
 
 
 export default ContactForm;

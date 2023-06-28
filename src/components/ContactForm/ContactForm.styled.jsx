@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { Form, Field } from 'formik';
 
-export const Title = styled.form`
+export const StForm = styled(Form)`
 background-color: rgb(2, 48, 85);
   display: flex;
   justify-content: center;
@@ -10,7 +11,7 @@ background-color: rgb(2, 48, 85);
   border-radius: 4px;
 `;
 
-export const Label = styled.label`
+export const StLabel = styled.label`
   margin-bottom: 10px;
   color: #fff;
 
@@ -19,10 +20,10 @@ export const Label = styled.label`
   }
 `;
 
-export const FieldName = styled.Field`
+export const FieldName = styled(Field)`
   margin-left: 28px;
 `;
 
-export const FieldNumber = styled.Field`
+export const FieldNumber = styled(Field)`
   margin-left: 10px;
 `;
