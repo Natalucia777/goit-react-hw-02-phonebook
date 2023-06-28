@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
+import shortid from 'shortid';
 import { Formik } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
 
@@ -32,7 +33,7 @@ class App extends Component {
     }
     
     const contact = {
-      id: shottid.generate(),
+      id: shortid.generate(),
       name: name,
       number: number,
     };
@@ -41,6 +42,8 @@ class App extends Component {
       contacts: [...prevState.contacts, contact],
     }));
 
+
+    
     const { target } = e;
     this.setState(() => ({
       [name]: target.value,
