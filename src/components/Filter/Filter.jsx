@@ -4,14 +4,14 @@ import { FilterWindow } from './Filter.styled';
 import { FilterLabel } from './Filter.styled';
 import { FilterInput } from './Filter.styled';
 
-const Filter = ({ value, onChenge }) => (
+const Filter = ({ value, onFilterChange }) => (
   <FilterWindow>
     <FilterLabel>
-      Filter
+      Filter: Find contacts by name
       <FilterInput
-        type="name"
+        type="text"
         value={value}
-        onChenge={onChenge}
+        onChange={onFilterChange}
       />
     </FilterLabel>
   </FilterWindow>
@@ -19,7 +19,7 @@ const Filter = ({ value, onChenge }) => (
 
 Filter.propTypes = {
   value: PropTypes.string.isRequired,
-  onChemge: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;

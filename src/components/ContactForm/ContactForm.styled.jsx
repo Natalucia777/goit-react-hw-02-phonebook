@@ -27,3 +27,7 @@ export const FieldName = styled(Field)`
 export const FieldNumber = styled(Field)`
   margin-left: 10px;
 `;
+
+export const FormButton = styled.button`
+  width: 300px;
+`;

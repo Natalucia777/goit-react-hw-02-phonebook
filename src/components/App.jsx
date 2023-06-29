@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
-import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 import shortid from 'shortid';
 import { AllContacts } from './App.styled';
 import { TitleContacts } from './App.styled';
-
-
-// import { Formik } from 'formik';
-// import { object, string, number, date, InferType } from 'yup';
-
 class App extends Component {
-  
-  state = {
-   contacts: [
+    state = {
+    contacts: [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
     {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
@@ -44,10 +38,8 @@ class App extends Component {
     }));
   };
 
-   
-
-onChenge = e => {
-    this.setState({ filter: e.currentTarget.value });
+filterChange = e => {
+    this.setState({ filter: e.target.value });
   };
     
 visiblContacts = () => {
@@ -57,23 +49,18 @@ visiblContacts = () => {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
-    
-    
-    // const { target } = e;
-    // this.setState(() => ({
-    //   [name]: target.value,
-    // }));
-  // }
-
+ 
   removeContact = todoId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== todoId),
-    }));
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(({ id }) => id !== todoId),
+      };
+    });
   };
 
   render() {
-    const { contacts, filter } = this.state;
-    
+    const { filter, contacts } = this.state;
+    const filterContact = this.visiblContacts();
     return (
       <div>
         <h1>
@@ -86,9 +73,16 @@ visiblContacts = () => {
         <AllContacts>
           All contacts: {contacts.length}
         </AllContacts>
-        <Filter value={filter} onChenge={this.onChenge} />
-        <ContactList
-        contacts={this.visiblContacts()} onRemove={this.removeContact}/>
+        <Filter value={filter} onFilterChange={this.filterChange} />
+          {contacts.length ? (
+            <ContactList
+              contacts={filterContact}
+              onDelete={this.removeContact} />
+          ) : (
+            <TitleContacts>
+              No contacts added yet
+            </TitleContacts>
+        )}
       </div>
     );
   }

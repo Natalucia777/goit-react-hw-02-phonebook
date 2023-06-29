@@ -9,5 +9,5 @@ color: #000;
 `;
 
 export const FilterInput = styled.input`
- margin-left: 20px;
+margin-left: 20px;
 `;

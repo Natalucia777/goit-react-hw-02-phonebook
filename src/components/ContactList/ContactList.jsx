@@ -4,20 +4,22 @@ import { AddList } from './ContactList.styled';
 import { Record } from './ContactList.styled';
 import { ContactUser } from './ContactList.styled';
 
-const ContactList = ({ contacts, onDelete }) => (
-  <AddList>
-    {contacts.map(({ id, name, number }) => (
-      <Record key={id}>
-        <ContactUser>
-          {name} - {number}
-        </ContactUser>
-        <button type="submit" onClick={() => onDelete(id)}>
-          Delete
-        </button>
-      </Record>
-    ))}
-  </AddList>
-);
+function ContactList({ contacts, onDelete }) {
+  return (
+    <AddList>
+      {contacts.map(({ id, name, number }) => (
+        <Record key={id}>
+          <ContactUser>
+            {name} - {number}
+          </ContactUser>
+          <button onClick={() => onDelete(id)}>
+            Delete
+          </button>
+        </Record>
+      ))}
+    </AddList>
+  );
+}
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
