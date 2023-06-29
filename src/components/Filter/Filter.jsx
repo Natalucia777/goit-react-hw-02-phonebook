@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FilterWindow } from './Filter.styled';
+import { FilterLabel } from './Filter.styled';
+import { FilterInput } from './Filter.styled';
 
 const Filter = ({ value, onChenge }) => (
-  <div>
-    <label>
+  <FilterWindow>
+    <FilterLabel>
       Filter
-      <input
+      <FilterInput
         type="name"
         value={value}
         onChenge={onChenge}
       />
-    </label>
-  </div>
+    </FilterLabel>
+  </FilterWindow>
 );
 
 Filter.propTypes = {

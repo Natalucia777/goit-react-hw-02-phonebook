@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AddList } from './ContactList.styled';
+import { Record } from './ContactList.styled';
+import { ContactUser } from './ContactList.styled';
 
 const ContactList = ({ contacts, onDelete }) => (
-  <ul>
+  <AddList>
     {contacts.map(({ id, name, number }) => (
-      <li key={id}>
-        <p>
+      <Record key={id}>
+        <ContactUser>
           {name} - {number}
-        </p>
+        </ContactUser>
         <button type="submit" onClick={() => onDelete(id)}>
           Delete
         </button>
-      </li>
+      </Record>
     ))}
-  </ul>
+  </AddList>
 );
 
 ContactList.propTypes = {

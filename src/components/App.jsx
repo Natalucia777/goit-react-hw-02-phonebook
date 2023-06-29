@@ -3,6 +3,9 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import shortid from 'shortid';
+import { AllContacts } from './App.styled';
+import { TitleContacts } from './App.styled';
+
 
 // import { Formik } from 'formik';
 // import { object, string, number, date, InferType } from 'yup';
@@ -77,12 +80,12 @@ visiblContacts = () => {
           Phonebook
         </h1>
         <ContactForm onSubmit={this.addContact} />
-        <h2>
+        <TitleContacts>
           Contacts
-        </h2>
-        <div>
+        </TitleContacts>
+        <AllContacts>
           All contacts: {contacts.length}
-        </div>
+        </AllContacts>
         <Filter value={filter} onChenge={this.onChenge} />
         <ContactList
         contacts={this.visiblContacts()} onRemove={this.removeContact}/>
